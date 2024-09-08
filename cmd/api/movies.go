@@ -6,6 +6,10 @@ import (
 	"time"
 
 	"greenlight.celsopires.net/internal/data"
+<<<<<<< HEAD
+=======
+	"greenlight.celsopires.net/internal/validator"
+>>>>>>> 1d5a090 (first commit)
 )
 
 func (app *application) createMovieHandler(w http.ResponseWriter, r *http.Request) {
@@ -20,6 +24,23 @@ func (app *application) createMovieHandler(w http.ResponseWriter, r *http.Reques
 		app.badRequestResponse(w, r, err)
 		return
 	}
+<<<<<<< HEAD
+=======
+
+	movie := &data.Movie{
+		Title:   input.Title,
+		Year:    input.Year,
+		Runtime: input.Runtime,
+		Genres:  input.Genres,
+	}
+
+	v := validator.New()
+
+	if data.ValidateMovie(v, movie); !v.Valid() {
+		app.failedValidationResponse(w, r, v.Errors)
+		return
+	}
+>>>>>>> 1d5a090 (first commit)
 	fmt.Fprintf(w, "%+v\n", input)
 }
 
