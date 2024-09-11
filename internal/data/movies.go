@@ -2,21 +2,6 @@ package data
 
 import (
 	"time"
-<<<<<<< HEAD
-)
-
-// Annotate the Movie struct with struct tags to control how the keys appear in the
-// JSON-encoded output.
-type Movie struct {
-	ID        int64     `json:"id"`
-	CreatedAt time.Time `json:"-"` // Use the - directive
-	Title     string    `json:"title"`
-	Year      int32     `json:"year,omitempty"`    // Add the omitempty directive
-	Runtime   Runtime   `json:"runtime,omitempty"` // Add the omitempty directive and string directive
-	Genres    []string  `json:"genres,omitempty"`  // Add the omitempty directive
-	Version   int32     `json:"version"`
-}
-=======
 
 	"greenlight.celsopires.net/internal/validator"
 )
@@ -47,4 +32,3 @@ func ValidateMovie(v *validator.Validator, movie *Movie) {
 	v.Check(len(movie.Genres) <= 5, "genres", "must not contain more than 5 genres")
 	v.Check(validator.Unique(movie.Genres), "genres", "must not contain duplicate values")
 }
->>>>>>> 1d5a090 (first commit)
