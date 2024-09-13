@@ -42,6 +42,9 @@ func main() {
 
 	flag.StringVar(&cfg.db.dsn, "db-dsn", "postgres://greenlight:pa55word@db/greenlight?sslmode=disable", "PostgreSQL DSN")
 	// flag.StringVar(&cfg.db.dsn, "db-dsn", os.Getenv("GREENLIGHT_DB_DSN"), "PostgreSQL DSN")
+	// File: $HOME/.profile
+	// export GREENLIGHT_DB_DSN='postgres://greenlight:pa55word@db/greenlight?sslmode=disable'
+	// export GREENLIGHT_DB_DSN='postgres://postgres:postgres@db/greenlight?sslmode=disable'
 
 	flag.IntVar(&cfg.db.maxOpenConns, "db-max-open-conns", 25, "PostgreSQL max open connections")
 	flag.IntVar(&cfg.db.maxIdleConns, "db-max-idle-conns", 25, "PostgreSQL max idle connections")
