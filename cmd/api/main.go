@@ -10,6 +10,7 @@ import (
 	_ "github.com/lib/pq"
 	"greenlight.celsopires.net/internal/data"
 	"greenlight.celsopires.net/internal/jsonlog"
+	"greenlight.celsopires.net/internal/mailer"
 )
 
 const version = "1.0.0"
@@ -28,12 +29,20 @@ type config struct {
 		burst   int
 		enabled bool
 	}
+	smtp struct {
+		host     string
+		port     int
+		username string
+		password string
+		sender   string
+	}
 }
 
 type application struct {
 	config config
 	logger *jsonlog.Logger
 	models data.Models
+	mailer mailer.Mailer
 }
 
 func main() {
@@ -42,8 +51,8 @@ func main() {
 	flag.IntVar(&cfg.port, "port", 4000, "API server port")
 	flag.StringVar(&cfg.env, "env", "development", "Environment (development|staging|production)")
 
-	flag.StringVar(&cfg.db.dsn, "db-dsn", "postgres://greenlight:pa55word@db/greenlight?sslmode=disable", "PostgreSQL DSN")
-	// flag.StringVar(&cfg.db.dsn, "db-dsn", os.Getenv("GREENLIGHT_DB_DSN"), "PostgreSQL DSN")
+	// flag.StringVar(&cfg.db.dsn, "db-dsn", "postgres://greenlight:pa55word@db/greenlight?sslmode=disable", "PostgreSQL DSN")
+	flag.StringVar(&cfg.db.dsn, "db-dsn", os.Getenv("GREENLIGHT_DB_DSN"), "PostgreSQL DSN")
 	// File: $HOME/.profile
 	// export GREENLIGHT_DB_DSN='postgres://greenlight:pa55word@db/greenlight?sslmode=disable'
 	// export GREENLIGHT_DB_DSN='postgres://postgres:postgres@db/greenlight?sslmode=disable'
@@ -55,6 +64,12 @@ func main() {
 	flag.Float64Var(&cfg.limiter.rps, "limiter-rps", 2, "Rate limiter maximum requests per second")
 	flag.IntVar(&cfg.limiter.burst, "limiter-burst", 4, "Rate limiter maximum burst")
 	flag.BoolVar(&cfg.limiter.enabled, "limiter-enabled", true, "Enable rate limiter")
+
+	flag.StringVar(&cfg.smtp.host, "smtp-host", "sandbox.smtp.mailtrap.io", "SMTP host")
+	flag.IntVar(&cfg.smtp.port, "smtp-port", 2525, "SMTP port")
+	flag.StringVar(&cfg.smtp.username, "smtp-username", os.Getenv("GREENLIGHT_SMTP_USERNAME"), "SMTP username")
+	flag.StringVar(&cfg.smtp.password, "smtp-password", os.Getenv("GREENLIGHT_SMTP_PASSWORD"), "SMTP password")
+	flag.StringVar(&cfg.smtp.sender, "smtp-sender", "Greenlight <no-reply@greenlight.celsopires.net>", "SMTP sender")
 
 	flag.Parse()
 
@@ -73,6 +88,7 @@ func main() {
 		config: cfg,
 		logger: logger,
 		models: data.NewModels(db),
+		mailer: mailer.New(cfg.smtp.host, cfg.smtp.port, cfg.smtp.username, cfg.smtp.password, cfg.smtp.sender),
 	}
 
 	// Call app.serve() to start the server.
