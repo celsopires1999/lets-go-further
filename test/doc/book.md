@@ -27,3 +27,9 @@ Command with kill
 BODY='{"name": "Edith Smith", "email": "edith@example.com", "password": "pa55word"}'
 curl -d "$BODY" localhost:4000/v1/users & pkill -SIGTERM api
 ```
+
+
+Hash Calculator
+```bash
+https://xorbin.com/tools/sha256-hash-calculator
+```
