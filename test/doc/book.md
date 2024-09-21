@@ -28,8 +28,17 @@ BODY='{"name": "Edith Smith", "email": "edith@example.com", "password": "pa55wor
 curl -d "$BODY" localhost:4000/v1/users & pkill -SIGTERM api
 ```
 
+Activating a user
+```bash
+curl -X PUT -d '{"token": "UXBAJOEVBD3W5NBHL325IPOHSI"}' localhost:4000/v1/users/activated
+```
 
 Hash Calculator
 ```bash
 https://xorbin.com/tools/sha256-hash-calculator
+```
+
+SQL Joins
+```bash
+https://www.dataquest.io/blog/sql-joins/
 ```
