@@ -1,3 +1,10 @@
+Migrations
+```bash
+migrate create -seq -ext .sql -dir ./migrations create_tokens_table
+
+migrate -path=./migrations -database=$GREENLIGHT_DB_DSN up
+```
+
 Start the server
 ```bash
 go run ./cmd/api
