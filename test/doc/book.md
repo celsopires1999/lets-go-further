@@ -42,3 +42,10 @@ SQL Joins
 ```bash
 https://www.dataquest.io/blog/sql-joins/
 ```
+
+Authentication
+```bash
+BODY='{"email": "alice@example.com", "password": "pa55word"}'
+curl -i -d "$BODY" localhost:4000/v1/tokens/authentication
+
+```	
