@@ -11,8 +11,19 @@ go run ./cmd/api
 
 ```
 
+Authentication
+```bash	
+curl -d '{"email": "alice@example.com", "password": "pa55word"}' localhost:4000/v1/tokens/authentication
+
+curl -H "Authorization: Bearer DOF536ZM5U46E443ZSWYORFQLY" localhost:4000/v1/healthcheck
+
+curl -i -H "Authorization: Bearer XXXXXXXXXXXXXXXXXXXXXXXXXX" localhost:4000/v1/healthcheck
+```
+
 Commands for testing the application
 ```bash
+curl localhost:4000/v1/healthcheck
+
 BODY='{"name": "Bob Jones", "email": "bob@example.com", "password": "pa55word"}'
 curl -w '\nTime: %{time_total}\n' -d "$BODY" localhost:4000/v1/users
 
