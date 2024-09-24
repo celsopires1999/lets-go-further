@@ -44,7 +44,7 @@ curl -d "$BODY" localhost:4000/v1/users & pkill -SIGTERM api
 
 Activating a user
 ```bash
-curl -X PUT -d '{"token": "UXBAJOEVBD3W5NBHL325IPOHSI"}' localhost:4000/v1/users/activated
+curl -X PUT -d '{"token": "KUJTN57UYUVBJ52CXR7ODPZJDA"}' localhost:4000/v1/users/activated
 ```
 
 Hash Calculator
@@ -77,5 +77,11 @@ curl -i -d "$BODY" -H "Authorization: Bearer KXEIYPSZBRVEXHAEGT2IDFFOZ4" localho
 BODY='{"email": "alice@example.com", "password": "pa55word"}'
 curl -d "$BODY" localhost:4000/v1/tokens/authentication
 curl -X DELETE -H "Authorization: Bearer UTMBIBEXKI7M36PR6L5POB4PNM" localhost:4000/v1/movies/5
+```	
 
+Updating the registration handler
+```bash
+BODY='{"name": "Grace Smith", "email": "grace@example.com", "password": "pa55word"}'
+curl -d "$BODY" localhost:4000/v1/users
+curl -X PUT -d '{"token": "KUJTN57UYUVBJ52CXR7ODPZJDA"}' localhost:4000/v1/users/activated
 ```	
