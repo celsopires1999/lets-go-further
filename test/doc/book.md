@@ -85,3 +85,14 @@ BODY='{"name": "Grace Smith", "email": "grace@example.com", "password": "pa55wor
 curl -d "$BODY" localhost:4000/v1/users
 curl -X PUT -d '{"token": "KUJTN57UYUVBJ52CXR7ODPZJDA"}' localhost:4000/v1/users/activated
 ```	
+
+Passing in multiple origins
+```bash
+air -- -cors-trusted-origins="http://localhost:9000 http://localhost:9001"
+```	
+
+Read recommendations
+```bash
+https://www.alexedwards.net/blog/custom-command-line-flags
+https://www.alexedwards.net/blog/topic
+```
