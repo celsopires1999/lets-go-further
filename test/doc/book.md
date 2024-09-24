@@ -3,6 +3,9 @@ Migrations
 migrate create -seq -ext .sql -dir ./migrations create_tokens_table
 
 migrate -path=./migrations -database=$GREENLIGHT_DB_DSN up
+migrate -path=./migrations -database=$GREENLIGHT_DB_DSN down 1
+migrate -path=./migrations -database=$GREENLIGHT_DB_DSN goto 1
+
 ```
 
 Start the server
@@ -66,4 +69,13 @@ Access a movie with actived user
 BODY='{"email": "faith@example.com", "password": "pa55word"}'
 curl -i -d "$BODY" localhost:4000/v1/tokens/authentication
 curl -i -H "Authorization: Bearer KXEIYPSZBRVEXHAEGT2IDFFOZ4" localhost:4000/v1/movies/1
+curl -X DELETE -H "Authorization: Bearer KXEIYPSZBRVEXHAEGT2IDFFOZ4" localhost:4000/v1/movies/1
+
+BODY='{"title":"Moana","year":2016,"runtime":"107 mins", "genres":["animation","adventure"]}' 
+curl -i -d "$BODY" -H "Authorization: Bearer KXEIYPSZBRVEXHAEGT2IDFFOZ4" localhost:4000/v1/movies
+
+BODY='{"email": "alice@example.com", "password": "pa55word"}'
+curl -d "$BODY" localhost:4000/v1/tokens/authentication
+curl -X DELETE -H "Authorization: Bearer UTMBIBEXKI7M36PR6L5POB4PNM" localhost:4000/v1/movies/5
+
 ```	
