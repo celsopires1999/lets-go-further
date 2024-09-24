@@ -60,3 +60,10 @@ BODY='{"email": "alice@example.com", "password": "pa55word"}'
 curl -i -d "$BODY" localhost:4000/v1/tokens/authentication
 
 ```	
+
+Access a movie with actived user
+```bash
+BODY='{"email": "faith@example.com", "password": "pa55word"}'
+curl -i -d "$BODY" localhost:4000/v1/tokens/authentication
+curl -i -H "Authorization: Bearer KXEIYPSZBRVEXHAEGT2IDFFOZ4" localhost:4000/v1/movies/1
+```	
