@@ -16,9 +16,12 @@ import (
 	"greenlight.celsopires.net/internal/data"
 	"greenlight.celsopires.net/internal/jsonlog"
 	"greenlight.celsopires.net/internal/mailer"
+	"greenlight.celsopires.net/internal/vcs"
 )
 
-const version = "1.0.0"
+var (
+	version = vcs.Version()
+)
 
 type config struct {
 	port int
