@@ -1,3 +1,6 @@
+ # Include variables from the .env file
+ include .envrc
+
 ## help: print this help message
 .PHONY: help
 help:
@@ -12,6 +15,11 @@ confirm:
 .PHONY: run/api
 run/api:
 	@go run ./cmd/api
+
+## run/air: run the cmd/api application using air
+.PHONY: run/air
+run/air:
+	@air ./cmd/api -- -limiter-enabled=false -db-max-open-conns=50 -db-max-idle-conns=50 -db-max-idle-time=20s -port ${GREENLIGHT_PORT}
 
 ## db/migrations/new name=$1: create a new database migration
 .PHONY: db/migrations/new
